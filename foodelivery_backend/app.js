@@ -11,6 +11,9 @@ const MondoDB=require("./sevices/mongodb.service");
 MondoDB.connectToMongoDB();
 
 var app = express();
+var cors = require('cors');
+app.use(cors());
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -23,11 +26,12 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/api', usersRouter);
+app.use('/api', authenticationRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
+
 });
 
 // error handler
@@ -39,6 +43,14 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
+  res.header( "Access-Control-Allow-Origin" );
+
+});
+
+
+app.get('/get', function(req, res, next) {
+  console.log("Hello")
+  res.json({ "title": 'Express' });
 });
 
 module.exports = app;

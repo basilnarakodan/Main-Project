@@ -1,10 +1,30 @@
 var express = require('express');
 var router = express.Router();
 
-router.post('/register', function(req, res, next) {
-    const body=req.body;
-    console.log(body);
-    res.json(body);
+const {
+    userRegister,
+    userLogin,
+    checkUserExist,
+}=require("../sevices/authentication.service")
+
+router.post('/register', async(req, res, next)=> {
+    let body=req.body;
+    console.log(body)
+    let response=await userRegister(body);
+    res.json(response);
+});
+
+router.post('/login', async(req, res, next)=> {
+    let body=req.body;
+    let response=await userLogin(body);
+    res.json(response);
+});
+
+
+router.get('/user-exist', async(req, res, next)=> {
+    let params=req.query;
+    let response=await checkUserExist(params);
+    res.json(response);
 });
 
 module.exports = router;
