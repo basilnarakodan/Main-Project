@@ -6,6 +6,11 @@ import ForgotPasswordScreen from "./ForgotPasswordScreen";
 import RegisterPhoneScreen from "./RegisterPhoneScreen";
 import VerificationScreen from "./VerificationScreen";
 import HomeScreen from "./HomeScreen";
+import DetailsScreen from "./DetailsScreen";
+import DashboardScreen from "./DashboardScreen";
+import ConnectScreen from "./ConnectScreen";
+import EditProfileScreen from "./EditProfileScreen";
+import ProfileScreen from "./ProfileScreen";
 
 export {
     SplashScreen,
@@ -16,4 +21,9 @@ export {
     RegisterPhoneScreen,
     VerificationScreen,
     HomeScreen,
+    DetailsScreen,
+    DashboardScreen,
+    ConnectScreen,
+    EditProfileScreen,
+    ProfileScreen,
 };

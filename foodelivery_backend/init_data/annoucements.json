@@ -1,0 +1,28 @@
+[
+    {
+        "id": "100",
+        "title": "Xpedition",
+        "subject": "biZSkills",
+        "location": "Online",
+        "images": {
+          "logo": "google",
+          "poster": "announcement1",
+          "cover": "burgers"
+        },
+        "date":"21/06/2023",
+        "time":"10:00 AM"
+    },
+    {
+        "id": "101",
+        "title": "Xpedition season 2",
+        "subject": "Tcs Xplore biz",
+        "location": "Online",
+        "images": {
+          "logo": "google",
+          "poster": "announcement2",
+          "cover": "burgers"
+        },
+        "date":"06/05/2023",
+        "time":"5:00 PM"
+    }
+]

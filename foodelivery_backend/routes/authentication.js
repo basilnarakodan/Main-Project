@@ -5,6 +5,7 @@ const {
     userRegister,
     userLogin,
     checkUserExist,
+    tokenRefresh
 }=require("../sevices/authentication.service")
 
 router.post('/register', async(req, res, next)=> {
@@ -26,5 +27,8 @@ router.get('/user-exist', async(req, res, next)=> {
     let response=await checkUserExist(params);
     res.json(response);
 });
+
+
+// router.post('/refresh-token',tokenRefresh);
 
 module.exports = router;

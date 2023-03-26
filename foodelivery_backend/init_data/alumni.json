@@ -1,0 +1,38 @@
+[
+    {
+        "id": "100",
+        "register_number":"TVE21MCA-2028",
+        "name": "arun",
+        "course": "BTech",
+        "stream": "Computer Science",
+        "images": {
+          "logo": "arun",
+          "poster": "announcement1",
+          "cover": "burgers"
+        },
+        "passing_year":"2021",
+        "batch":"2017-21",
+        "placed_company":["Mindtree","Tcs"],
+        "joined_company":"Mindtree",
+        "linkedIn":"arun201",
+        "linkedInUrl":""
+    },
+    {
+        "id": "101",
+        "register_number":"TVE21MCA-2022",
+        "name": "basil",
+        "course": "MCA",
+        "stream": "Computer Applications",
+        "images": {
+          "logo": "basil",
+          "poster": "announcement2",
+          "cover": "burgers"
+        },
+        "passing_year":"2022",
+        "batch":"2020-22",
+        "placed_company":["Aurionpro","Tcs"],
+        "joined_company":"Aurionpro",
+        "linkedIn":"basilnarakodan",
+        "linkedInUrl":"www.linkedin.com/in/basil-n-3305b4121"
+    }
+]

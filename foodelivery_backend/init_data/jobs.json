@@ -1,0 +1,56 @@
+[
+    {
+        "id": "100",
+        "company": "Google",
+        "role": "Product Engineer",
+        "location": "13A Street, New york",
+        "images": {
+          "logo": "google",
+          "poster": "mcdonalds",
+          "cover": "burgers"
+        },
+        "ctc":"6 LPA",
+        "type":"full time",
+        "experiance":"fresher",
+        "branch":["Btech","MCA","MBA","Mtech"],
+        "percentage":"70",
+        "cgpa":"",
+        "backlog":"No",
+        "note":"",
+        "about_job":"EasyEcom is a rapidly growing SaaS company, offering centralized inventory management solutions to eCommerce brands. With the growing business scale, we are actively expanding our team across all horizons.hiring for various roles as follows:",
+        "about_company":" Why should you apply: Working in a growing SaaS startup will provide students with ample opportunities to learn and grow their skillset.",
+        "requirments":"EasyEcom is an AI-based analytics-driven eCommerce platform catering to brands and multichannel retailers like Epigamia, Mondelez international, My Glamm, Borosil, Prestige, etc. The platform is seeing rapid adoption from brands globally. The team consists of experienced eCommerce veterans and a highly experienced technical team having more than 35 years of experience. We are backed by marquee investors from India as well as the US.Kindly Note:  Management Positions are for In-Office roles at the Bangalore location Why should you apply: Working in a growing SaaS startup will provide students with ample opportunities to learn and grow their skillset.About EasyEcom:EasyEcom is an AI-based analytics-driven eCommerce platform catering to brands and multichannel retailers like Epigamia, Mondelez international, My Glamm, Borosil, Prestige, etc. The platform is seeing rapid adoption from brands globally. The team consists of experienced eCommerce veterans and a highly experienced technical team having more than 35 years of experience. We are backed by marquee investors from India as well as the US.Kindly Note:  Management Positions are for In-Office roles at the Bangalore location",
+        "attachments":"",
+        "job_post_date":"21/04/2022",
+        "job_post_time":"19:07:48",
+        "last_date":"22/04/2022",
+        "last_time":"19:07:48"
+      },
+      {
+        "id": "101",
+        "company": "Facebook",
+        "role": "Data Analyst",
+        "location": "Hyderabad",
+        "images": {
+            "logo": "facebook",
+            "poster": "burgerking",
+            "cover": "burgerking"
+        },
+        "ctc":"12 LPA",
+        "type":"full time",
+        "experiance":"fresher",
+        "branch":["MCA"],
+        "percentage":"60",
+        "cgpa":"",
+        "backlog":"No",
+        "note":"",
+        "about_job":"EasyEcom is a rapidly growing SaaS company, offering centralized inventory management solutions to eCommerce brands. With the growing business scale, we are actively expanding our team across all horizons.hiring for various roles as follows:",
+        "about_company":" Why should you apply: Working in a growing SaaS startup will provide students with ample opportunities to learn and grow their skillset.",
+        "requirments":"EasyEcom is an AI-based analytics-driven eCommerce platform catering to brands and multichannel retailers like Epigamia, Mondelez international, My Glamm, Borosil, Prestige, etc. The platform is seeing rapid adoption from brands globally. The team consists of experienced eCommerce veterans and a highly experienced technical team having more than 35 years of experience. We are backed by marquee investors from India as well as the US.Kindly Note:  Management Positions are for In-Office roles at the Bangalore location Why should you apply: Working in a growing SaaS startup will provide students with ample opportunities to learn and grow their skillset.About EasyEcom:EasyEcom is an AI-based analytics-driven eCommerce platform catering to brands and multichannel retailers like Epigamia, Mondelez international, My Glamm, Borosil, Prestige, etc. The platform is seeing rapid adoption from brands globally. The team consists of experienced eCommerce veterans and a highly experienced technical team having more than 35 years of experience. We are backed by marquee investors from India as well as the US.Kindly Note:  Management Positions are for In-Office roles at the Bangalore location",
+        "attachments":"",
+        "job_post_date":"21/04/2022",
+        "job_post_time":"19:07:48",
+        "last_date":"22/04/2022",
+        "last_time":"19:07:48"
+      }
+]

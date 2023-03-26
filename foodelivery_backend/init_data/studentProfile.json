@@ -1,0 +1,36 @@
+[
+    {
+        "id": "100",
+        "username":"bnk",
+        "first_name": "Arun",
+        "last_name":"kumar",
+        "phone":"8157877599",
+        "email":"bnk@gmail.com",
+        "gender":"male",
+        "dob":"21/04/2000",
+        "country":"india",
+        "city":"kozhikode",
+        "institution_name":"CET",
+        "register_number":"TVE21MCA-2028",
+        "course": "BTech",
+        "stream": "Computer Science",
+        "active_backlog":"no",
+        "hsc_percentage":"95",
+        "hsc_cgpa":"9.5",
+        "hsc_passing_year":"2016",
+        "ssc_percentage":"95",
+        "ssc_cgpa":"9.5",
+        "ssc_passing_year":"2016",
+        "degree_percentage":"95",
+        "degree_cgpa":"9.5",
+        "degree_passing_year":"2016",
+        "pg_percentage":"95",
+        "pg_cgpa":"9.5",
+        "pg_passing_year":"2016",
+        "images": {
+          "logo": "google",
+          "poster": "announcement1",
+          "cover": "burgers"
+        }
+    }
+]

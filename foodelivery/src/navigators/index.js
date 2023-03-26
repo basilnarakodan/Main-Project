@@ -11,7 +11,13 @@ import {
     RegisterPhoneScreen,
     VerificationScreen,
     HomeScreen,
+    DetailsScreen,
+    DashboardScreen,
+    ConnectScreen,
+    EditProfileScreen,
+    ProfileScreen
 } from "../screens";
+import HomeTabs from "./BottomTabs"
 import { GeneralAction } from "../actions";
 
 const Stack = createStackNavigator();
@@ -32,7 +38,9 @@ const Navigators = () => {
             <Stack.Navigator screenOptions={{ headerShown: false }}>
                 {
                     isAppLoading ? (<Stack.Screen name="Splash" component={SplashScreen} />
-                    ) : !token || token === null || token === '' ? (
+                    ) : 
+                    !token || token === null || token === '' ?
+                     (
                         <>
                             {isFirstTimeUse && (
                                 <Stack.Screen name="Welcome" component={WelcomeScreen} />
@@ -44,7 +52,14 @@ const Navigators = () => {
                             <Stack.Screen name="Verification" component={VerificationScreen} />
                         </>
                     ) : (
-                        <Stack.Screen name="Home" component={HomeScreen} />
+                        <>
+                        <Stack.Screen name="HomeTabs" component={HomeTabs} />
+                        <Stack.Screen name="Details" component={DetailsScreen} />
+                        <Stack.Screen name="Dashboard" component={DashboardScreen} />
+                        <Stack.Screen name="Connect" component={ConnectScreen} />
+                        <Stack.Screen name="Profile" component={ProfileScreen} />
+                        <Stack.Screen name="EditProfile" component={EditProfileScreen} />
+                        </>
                     )}
             </Stack.Navigator>
         </NavigationContainer>

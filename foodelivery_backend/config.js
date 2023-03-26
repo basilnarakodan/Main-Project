@@ -6,6 +6,12 @@ module.exports={
         database:"foodelivery_db",
         collections:{
             USERS:"users",
+            RESTAURANTS:"restaurants",
+            JOBS:"jobs",
+            ANNOUNCEMENTS:"announcements",
+            ALUMNI:"alumni",
+            STUDENTPROFILE:"studentProfile",
+            JOBAPPLICATIONS:"jobApplications"
         },
     },
     serverConfig:{
