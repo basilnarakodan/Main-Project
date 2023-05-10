@@ -68,7 +68,6 @@ const SignupScreen=({navigation})=>{
                 setErrorMessage(response?.message)
             }
         })
-        // navigation.navigate("RegisterPhone")
     }
 
     const checkUserExist=async(type,value)=>{
@@ -175,7 +174,7 @@ const SignupScreen=({navigation})=>{
                  ):( <Text style={styles.signinButtonText} >Create Account</Text>
                 )}
             </TouchableOpacity>
-            <Text style={styles.orText}>OR</Text>
+            {/* <Text style={styles.orText}>OR</Text>
             <TouchableOpacity style={styles.facebookButton}  activeOpacity={0.8}>
                 <View style={styles.socialButtonContainer}>
                     <View style={styles.signinButtonLogoContainer}>
@@ -191,7 +190,7 @@ const SignupScreen=({navigation})=>{
                     </View>
                     <Text style={styles.socialSigninButtonText}>Connect with Google</Text>
                 </View>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
         </View>
     );
 };

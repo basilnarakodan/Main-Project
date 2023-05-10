@@ -1,0 +1,78 @@
+  .mainTitle {
+      font-size: 20px;
+      font-weight: bold;
+      color: teal;
+      padding-left: 50px;
+  }
+
+  .Auth-form-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100vw;
+      height: 80vh;
+      background-color: white;
+
+      .Auth-form {
+          width: 420px;
+          box-shadow: rgb(0 0 0 / 16%) 1px 1px 10px;
+          padding-top: 30px;
+          padding-bottom: 20px;
+          border-radius: 8px;
+          background-color: white;
+
+          .Auth-form-content {
+              padding-left: 12%;
+              padding-right: 12%;
+
+              .Auth-form-title {
+                  text-align: center;
+                  margin-bottom: 1em;
+                  font-size: 24px;
+                  color: rgb(34, 34, 34);
+                  font-weight: 600;
+              }
+
+              label {
+                  font-size: 14px;
+                  font-weight: 550;
+                  color: rgb(122, 117, 117);
+
+
+              }
+
+              input {
+                  margin: 6px;
+                  border: 1px solid gray;
+                  border-radius: 5px;
+                  height: 23px;
+                  width: 300px;
+              }
+
+              button {
+                  width: 150px;
+                  padding: 10px;
+                  border: none;
+                  background-color: teal;
+                  color: white;
+                  font-weight: bold;
+                  cursor: pointer;
+                  margin-top: 20px;
+                  margin-bottom: 10px;
+                  width: 315px;
+                  border-radius: 8px;
+              }
+
+              .error {
+                color: red;
+                font-size:13px;
+                margin-left: 10px;
+              }
+
+              .forgot-password-text-right-mt-2 {
+                  font-size: 14px;
+                  color: rgb(34, 34, 34);
+              }
+          }
+      }
+  }

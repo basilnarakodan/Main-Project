@@ -1,51 +1,49 @@
 import React, { useState, useEffect, useRef } from "react";
-import { View, Text, StyleSheet, TextInput, StatusBar, ScrollView, FlatList, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TextInput, StatusBar, ScrollView, FlatList, TouchableOpacity, Image } from "react-native";
 import { Display } from "../utils";
 import { Separator } from "../components";
 import Feather from "react-native-vector-icons/Feather";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { Colors, Fonts, Images } from "../constants"
-import { RestaurantService, JobService, UserService, StorageService } from "../services";
+import { JobService } from "../services";
 import { RestaurantCard, RestaurantMediumCard } from "../components";
 import AnnouncementService from "../services/AnnouncementService";
-
+import { getUserData } from "../Store";
 
 const HomeScreen = ({ navigation }) => {
 
-    const [restaurants, setRestaurants] = useState(null);
+    const searchRef = useRef();
+
     const [jobs, setJobs] = useState(null);
     const [oldjobs, setOldJobs] = useState(null);
     const [search, setSearch] = useState("");
-    const searchRef = useRef();
     const [announcements, setAnnouncements] = useState(null);
+    // const [userData, setUserData] = useState();
 
     useEffect(() => {
-        const unsubscribe = navigation.addListener('focus', () => {
-            RestaurantService.getRestaurants().then(response => {
-                if (response?.status) {
-                    // console.log(response?.data)
-                    setRestaurants(response?.data);
-                    // console.log(restaurants)
-                }
-            })
-            JobService.getJobs().then(response => {
-                if (response?.status) {
-                    // console.log(response?.data)
-                    setJobs(response?.data);
-                    setOldJobs(response?.data);
-                    // console.log(jobs)
-                }
-            })
-            AnnouncementService.getAnnouncements().then(response => {
-                if (response?.status) {
-                    // console.log(response?.data)
-                    setAnnouncements(response?.data);
-                    // console.log(announcements)
-                }
-            })
-        })
+        const fetchData = async () => {
+            const userData = await getUserData();
+            if (userData && userData.data && userData.data.course) {
+                JobService.getJobByBranch(userData.data.course).then(response => {
+                    if (response?.status) {
+                        setJobs(response?.data);
+                        setOldJobs(response?.data);
+                    }
+                });
+    
+                AnnouncementService.getAnnouncements().then(response => {
+                    if (response?.status) {
+                        setAnnouncements(response?.data);
+                    }
+                });
+            }
+        };
+    
+        const unsubscribe = navigation.addListener('focus', fetchData);
         return unsubscribe;
-    }, [])
+    }, []);
+    
+    
 
     const onSearch = (searchText) => {
         if (searchText == "") {
@@ -63,7 +61,17 @@ const HomeScreen = ({ navigation }) => {
         <View style={styles.container}>
             <StatusBar barStyle="dark-content" backgroundColor={Colors.DEFAULT_WHITE} translucent />
             <Separator height={StatusBar.currentHeight} />
+
             <View style={styles.inputContainer}>
+                <TouchableOpacity onPress={() => navigation.openDrawer()} activeOpacity={0.8}>
+                    {/* <Entypo
+                        name="menu"
+                        size={32}
+                        color={Colors.DEFAULT_GREEN}
+                        style={{ marginRight: 10 }}
+                    /> */}
+                    <Image source={require('../assets/images/menu.png')} style={{ width: 30, height: 30 }} />
+                </TouchableOpacity>
                 <View style={styles.inputSubContainer}>
                     <Feather
                         name="search"
@@ -83,19 +91,19 @@ const HomeScreen = ({ navigation }) => {
                             onSearch(searchText)
                         }}
                     />
-                    {search==""?null:(
-                    <TouchableOpacity
-                        onPress={() => {
-                            searchRef.current.clear();
-                            setSearch("");
-                        }}>
-                        <Ionicons
-                            name="close"
-                            size={22}
-                            color={Colors.DEFAULT_GREY}
-                            style={{ marginRight: 10 }}
-                        />
-                    </TouchableOpacity>
+                    {search == "" ? null : (
+                        <TouchableOpacity
+                            onPress={() => {
+                                searchRef.current.clear();
+                                setSearch("");
+                            }}>
+                            <Ionicons
+                                name="close"
+                                size={22}
+                                color={Colors.DEFAULT_GREY}
+                                style={{ marginRight: 10 }}
+                            />
+                        </TouchableOpacity>
                     )}
                 </View>
             </View>
@@ -116,9 +124,9 @@ const HomeScreen = ({ navigation }) => {
                         renderItem={({ item }) => (
                             <RestaurantCard
                                 {...item}
-                                // navigate={restaurantId =>
-                                //     navigation.navigate('Profile', { restaurantId })
-                                // }
+                            // navigate={restaurantId =>
+                            //     navigation.navigate('Profile', { restaurantId })
+                            // }
                             />
                         )}
                     />
@@ -127,7 +135,9 @@ const HomeScreen = ({ navigation }) => {
                     <Text style={styles.listHeaderTitle}>Recent Jobs</Text>
                 </View>
                 {jobs?.map(item => (
-                    <RestaurantMediumCard {...item} key={item?.id} navigate={(id) => navigation.navigate("Details", { id })} />
+                    <RestaurantMediumCard {...item} key={item?.id} navigate={(id, company) => navigation.navigate("Details", {
+                        id, company
+                    })} />
                 ))}
                 <Separator height={Display.setHeight(5)} />
             </ScrollView>
@@ -142,17 +152,27 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.DEFAULT_WHITE,
     },
     inputContainer: {
+        // backgroundColor: Colors.LIGHT_GREY,
+        // paddingHorizontal: 20,
+        marginVertical: 15,
+        marginBottom: 20,
+        marginHorizontal: 20,
+        // height: 45,
+        // borderRadius: 8,
+        // borderWidth: 0.5,
+        // borderColor: Colors.LIGHT_GREY2,
+        justifyContent: "space-between",
+        alignItems: "center",
+        flexDirection: "row",
+    },
+    inputSubContainer: {
         backgroundColor: Colors.LIGHT_GREY,
         paddingHorizontal: 20,
-        marginVertical: 15,
-        marginHorizontal: 20,
         height: 45,
+        width: Display.setWidth(75),
         borderRadius: 8,
         borderWidth: 0.5,
         borderColor: Colors.LIGHT_GREY2,
-        justifyContent: "center",
-    },
-    inputSubContainer: {
         flexDirection: "row",
         alignItems: "center",
     },

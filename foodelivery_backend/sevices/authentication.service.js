@@ -13,27 +13,27 @@ const userRegister = async (user) => {
             username: user?.username,
             email: user?.email,
             password: passwordHash,
-            first_name:"",
-            last_name:"",
-            phone:"",
-            gender:"",
-            dob:"",
-            country:"",
-            city:"",
-            institution_name:"",
-            register_number:"",
-            course:"",
-            stream:"",
-            active_backlog:"",
-            hsc_percentage:"",
-            hsc_cgpa:"",
-            hsc_passing_year:"",
-            ssc_percentage:"",
-            ssc_cgpa:"",
-            ssc_passing_year:"",
-            degree_percentage:"",
-            degree_cgpa:"",
-            degree_passing_year:""
+            first_name: "",
+            last_name: "",
+            phone: "",
+            gender: "",
+            dob: "",
+            country: "",
+            city: "",
+            institution_name: "",
+            register_number: "",
+            course: "",
+            stream: "",
+            active_backlog: "",
+            hsc_percentage: "",
+            hsc_cgpa: "",
+            hsc_passing_year: "",
+            ssc_percentage: "",
+            ssc_cgpa: "",
+            ssc_passing_year: "",
+            degree_percentage: "",
+            degree_cgpa: "",
+            degree_passing_year: ""
         };
 
         let savedUser = await MondoDB.db
@@ -116,6 +116,7 @@ const userLogin = async (user) => {
     }
 };
 
+
 const checkUserExist = async (query) => {
     let messages = {
         email: "User already exist.",
@@ -146,20 +147,30 @@ const tokenVerification = async (req, res, next) => {
 
             req?.originalUrl.endsWith("/login") ||
             req?.originalUrl.endsWith("/user-exist") ||
-            req?.originalUrl.endsWith("/register")
+            req?.originalUrl.endsWith("/register") ||
+            req?.originalUrl.endsWith("/get")||
+            req?.originalUrl.endsWith("/adminlogin")||
+            req?.originalUrl.endsWith("/newjob")||
+            req?.originalUrl.endsWith("/newannouncement")
+
         )
             return next();
         let token = req?.headers["authorization"];
+
+
         if (token && token.startsWith("Bearer ")) {
+
             token = token.slice(7, token?.length);
             jwt.verify(token, config.tockenSecret, (error, decoded) => {
                 if (error) {
+
                     res.status(401).json({
                         status: false,
                         message: error?.name ? error?.name : "Invalid Token",
                         error: `Invalid token | ${error?.message}`,
                     });
                 } else {
+
                     req["username"] = decoded?.username;
                     next();
                 }

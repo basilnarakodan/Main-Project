@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     View,
     Text,
@@ -7,25 +7,33 @@ import {
     TextInput,
     StyleSheet,
     ScrollView,
-    StatusBar
+    StatusBar,
+    Image
 } from 'react-native';
 import { Colors, Fonts, Images } from '../constants';
 import { Display } from '../utils';
 import { Separator } from '../components';
-// import {useTheme} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicons from "react-native-vector-icons/Ionicons";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FeatherIcon from 'react-native-vector-icons/Feather';
-import {UserService,StudentProfileService } from "../services";
-
+import { UserService, StudentProfileService, StaticImageService, StorageService } from "../services";
+import { useDispatch } from 'react-redux';
+import { GeneralAction } from '../actions';
+import Entypo from "react-native-vector-icons/Entypo";
 
 const ProfileScreen = ({ navigation }) => {
 
-    const [studentProfile, setStudentProfile] = useState({});
+    const dispatch = useDispatch()
+    const logout = () => {
+        StorageService.setToken("")
+        dispatch(GeneralAction.setToken(""))
+        dispatch(GeneralAction.setUserData(null))
+    }
 
+    const [studentProfile, setStudentProfile] = useState({});
     useEffect(() => {
         const unsubscribe = navigation.addListener('focus', () => {
             UserService.getUserData().then(response => {
@@ -44,7 +52,16 @@ const ProfileScreen = ({ navigation }) => {
                 <StatusBar barStyle="dark-content" backgroundColor={Colors.DEFAULT_WHITE} translucent />
                 <Separator height={StatusBar.currentHeight} />
                 <View style={styles.headerContainer}>
-                    <Ionicons name="chevron-back-outline" size={30} onPress={() => navigation.goBack()} />
+                    {/* <Ionicons name="chevron-back-outline" size={30} onPress={() => navigation.goBack()} /> */}
+                    <TouchableOpacity onPress={() => navigation.openDrawer()} activeOpacity={0.8}>
+                        {/* <Entypo
+                            name="menu"
+                            size={32}
+                            color={Colors.DEFAULT_GREEN}
+                            style={{ marginRight: 10 }}
+                        /> */}
+                        <Image source={require('../assets/images/menu.png')} style={{width:30,height:30}}/>
+                    </TouchableOpacity>
                     <Text style={styles.headerTitle}>Profile</Text>
                 </View>
                 <Separator height={15} />
@@ -58,7 +75,7 @@ const ProfileScreen = ({ navigation }) => {
                             alignItems: 'center',
                         }}>
                         <ImageBackground
-                            source={Images.XAVIER}
+                            source={{ uri: StaticImageService.getProfile(studentProfile.username) }}
                             style={{ height: 100, width: 100 }}
                             imageStyle={{ borderRadius: 15 }}>
                             <View
@@ -71,17 +88,17 @@ const ProfileScreen = ({ navigation }) => {
                         </ImageBackground>
                     </View>
                     <Text style={{ marginTop: 10, fontSize: 18, fontWeight: 'bold' }}>
-                        John Xavier
+                        {studentProfile.first_name}{" "}{studentProfile.last_name}
                     </Text>
-                    <TouchableOpacity activeOpacity={0.8}>
-                        <Text style={{ marginTop:5, fontSize: 15, color: Colors.FABEBOOK_BLUE }}>
+                    <TouchableOpacity activeOpacity={0.8} onPress={() => logout()}>
+                        <Text style={{ marginTop: 5, fontSize: 15, color: Colors.FABEBOOK_BLUE }}>
                             logout
                             <MaterialIcons color={Colors.FABEBOOK_BLUE} name="logout" size={16} />
                         </Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                         activeOpacity={0.8}
-                        onPress={() => navigation.navigate('EditProfile',{studentProfile})}>
+                        onPress={() => navigation.navigate('EditProfile', { studentProfile })}>
                         <View style={styles.profileAction}>
                             <Text style={styles.profileActionText}>Edit Profile</Text>
 

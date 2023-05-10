@@ -5,13 +5,15 @@ module.exports={
         connectionUrl:config.mongoConnectionUrl,
         database:"foodelivery_db",
         collections:{
+            ADMIN:"admin",
             USERS:"users",
             RESTAURANTS:"restaurants",
             JOBS:"jobs",
             ANNOUNCEMENTS:"announcements",
             ALUMNI:"alumni",
             STUDENTPROFILE:"studentProfile",
-            JOBAPPLICATIONS:"jobApplications"
+            JOBAPPLICATIONS:"jobApplications",
+            REVIEW:"review"
         },
     },
     serverConfig:{

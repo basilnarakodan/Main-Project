@@ -7,6 +7,7 @@ import AlumniService from "./AlumniService";
 import AnnouncementService from "./AnnouncementService";
 import UserService from "./UserService";
 import StudentProfileService from "./StudentProfileService";
+import ReviewService from "./ReviewService";
 
 export {
     UserService,
@@ -17,5 +18,6 @@ export {
     RestaurantService,
     JobService,
     AlumniService,
-    AnnouncementService
+    AnnouncementService,
+    ReviewService
 }

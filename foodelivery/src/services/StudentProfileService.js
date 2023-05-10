@@ -82,5 +82,26 @@ const getStudentProfile = async username => {
     }
 }
 
+const editStudentProfileImg = async (formdata) => {
+  console.log(formdata); 
+  console.log(`EditStudentProfileService | EditStudentProfileImg`);
+  try {
+     
+    let uploadResponse = await axios.post(
+      `${ApiConstants.BACKEND_API.BASE_API_URL}/upload`,  formdata,
+      {
+          headers: {
+              "Content-Type":'multipart/form-data',
+            ... authHeader(getToken())
+          }
+      })
 
-  export default {getStudentProfile,editStudentProfile};
+      // console.log(editProfileResponse?.data);
+      return uploadResponse?.data;
+  } catch (error) {
+      console.log(error)
+      return { status: false, message: "Oops! Something went wrong" };
+  }
+}
+
+  export default {getStudentProfile,editStudentProfile,editStudentProfileImg};

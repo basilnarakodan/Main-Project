@@ -1,21 +1,21 @@
 const WELCOME_CONTENTS = [
     {
       image: 'DISCOVER',
-      title: 'Discover places near you',
+      title: 'Discover best jobs',
       content:
-        'We make it simple to find your favorite food. Enter your address and let us do the rest.',
+        'We make it simple to find your best job. Enter your profile and let us do the rest.',
     },
     {
       image: 'FAVORITE',
-      title: 'Order your favorite',
+      title: 'Apply your favorite',
       content:
-        'We will store your favorite foods based on your search and orders.',
+        'We will store your favorite roles based on your application.',
     },
     {
       image: 'DELIVER',
-      title: 'Fastest Delivery',
+      title: 'Fastest recruitment process',
       content:
-        'We make food ordering fast, easy and free. No matter you paid online or cash.',
+        'We make recruitment process fast, easy and free. No matter you applied oncampus or off campus.',
     },
   ];
   

@@ -2,13 +2,14 @@ import React, { useEffect } from "react";
 import { View, Text, StyleSheet, StatusBar, Image } from 'react-native';
 import { Colors, Images, Fonts } from "../constants";
 import { Display } from "../utils";
+import * as Animatable from 'react-native-animatable';
 
 const SplashScreen = ({ navigation }) => {
 
     // useEffect(()=>{
     //     setTimeout(()=>{
-    //         navigation.navigate("Welcome");
-    //     },1500)
+    //         navigation.navigate("Main");
+    //     },2200)
     // },[])
 
     return (
@@ -18,11 +19,12 @@ const SplashScreen = ({ navigation }) => {
                 backgroundColor={Colors.DEFAULT_GREEN}
                 translucent />
             <Image
-                source={Images.PLATE}
+                source={require('../assets/images/app.png')}
                 resizeMode="contain"
                 style={styles.image}
-            ></Image>
-            <Text style={styles.titleText}>FooDelivery</Text>
+                animation={'zoomIn'}
+                duration={2000}
+            />
         </View>
     );
 };
@@ -37,6 +39,7 @@ const styles = StyleSheet.create({
     image: {
         height: Display.setHeight(15),
         width: Display.setWidth(40),
+        marginBottom: 10,
     },
     titleText: {
         color: Colors.DEFAULT_WHITE,

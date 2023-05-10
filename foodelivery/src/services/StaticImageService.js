@@ -9,14 +9,17 @@ const getFlagIcon = (
 const getLogo = imageId =>
     `${ApiConstants.STATIC_IMAGE.BASE_URL}/logo/${imageId}.png`;
 
+const getProfile = imageId =>
+    `${ApiConstants.STATIC_IMAGE.BASE_URL}/profile/${imageId}.jpg?timestamp=${new Date().getTime()}`;
+
 const getPoster = (imageId, quality = ApiConstants.STATIC_IMAGE.QUALITY.HD) =>
     `${ApiConstants.STATIC_IMAGE.BASE_URL}/poster/${quality}/${imageId}.png`;
 
 const getGalleryImage = (
     imageId,
     size,
-    quality = ApiContants.STATIC_IMAGE.QUALITY.SD,
+    quality = ApiConstants.STATIC_IMAGE.QUALITY.SD,
 ) =>
     `${ApiConstants.STATIC_IMAGE.BASE_URL}/gallery/${size}/${quality}/${imageId}.png`;
 
-export default { getFlagIcon, getLogo, getPoster, getGalleryImage };
+export default { getFlagIcon, getLogo, getPoster, getGalleryImage,getProfile };

@@ -5,6 +5,7 @@ const {
     userRegister,
     userLogin,
     checkUserExist,
+    adminLogin,
     tokenRefresh
 }=require("../sevices/authentication.service")
 
@@ -20,7 +21,6 @@ router.post('/login', async(req, res, next)=> {
     let response=await userLogin(body);
     res.json(response);
 });
-
 
 router.get('/user-exist', async(req, res, next)=> {
     let params=req.query;

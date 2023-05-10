@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
-import { View, Text, StyleSheet, ScrollView, StatusBar, TextInput,TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, ScrollView, StatusBar, TextInput, TouchableOpacity } from "react-native";
 import { Colors, Fonts } from "../constants";
 import { Display } from "../utils";
 import { Separator, ConnectCard } from "../components";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Feather from "react-native-vector-icons/Feather";
 import { RestaurantService, AlumniService } from "../services";
-
+import Entypo from "react-native-vector-icons/Entypo";
 
 const ConnectScreen = ({ navigation }) => {
 
@@ -18,13 +18,6 @@ const ConnectScreen = ({ navigation }) => {
 
     useEffect(() => {
         const unsubscribe = navigation.addListener('focus', () => {
-            RestaurantService.getRestaurants().then(response => {
-                if (response?.status) {
-                    // console.log(response?.data)
-                    setRestaurants(response?.data);
-                    // console.log(restaurants)
-                }
-            })
             AlumniService.getAlumnis().then(response => {
                 if (response?.status) {
                     // console.log(response?.data)
@@ -46,16 +39,23 @@ const ConnectScreen = ({ navigation }) => {
             });
             setAlumnis(tempList);
         }
-
     }
 
     return (
         <View style={styles.container}>
             <ScrollView showsVerticalScrollIndicator={false}>
                 <StatusBar barStyle="dark-content" backgroundColor={Colors.DEFAULT_WHITE} translucent />
-                <Separator height={StatusBar.currentHeight + 10} />
+                <Separator height={StatusBar.currentHeight } />
                 <View style={styles.headerContainer}>
                     <Ionicons name="chevron-back-outline" size={30} onPress={() => navigation.goBack()} />
+                    {/* <TouchableOpacity onPress={() => navigation.openDrawer()} activeOpacity={0.8}>
+                        <Entypo
+                            name="menu"
+                            size={32}
+                            color={Colors.DEFAULT_GREEN}
+                            style={{ marginRight: 10 }}
+                        />
+                    </TouchableOpacity> */}
                     <Text style={styles.headerTitle}>Connect</Text>
                 </View>
                 <View style={styles.inputContainer}>

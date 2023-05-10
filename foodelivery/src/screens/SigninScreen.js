@@ -113,7 +113,7 @@ const SigninScreen = ({ navigation }) => {
                 <Text style={styles.accountText}>Don't have an account?</Text>
                 <Text style={styles.signupText} onPress={() => navigation.navigate("Signup")}>Sign Up</Text>
             </View>
-            <Text style={styles.orText}>OR</Text>
+            {/* <Text style={styles.orText}>OR</Text>
             <TouchableOpacity style={styles.facebookButton} activeOpacity={0.8}>
                 <View style={styles.socialButtonContainer}>
                     <View style={styles.signinButtonLogoContainer}>
@@ -129,7 +129,7 @@ const SigninScreen = ({ navigation }) => {
                     </View>
                     <Text style={styles.socialSigninButtonText}>Connect with Google</Text>
                 </View>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
         </View>
     );
 };

@@ -57,6 +57,36 @@ const getOneJobById = async (id) => {
   }
 };
 
+
+
+const getJobByBranch = async (branch) => {
+  try {
+    let job = await MongoDB.db
+      .collection(mongoConfig.collections.JOBS)
+      .find({branch:{"$in":[branch]} }).toArray()
+
+    if (job) {
+      console.log(job);
+      return {
+        status: true,
+        message: "job found successfully",
+        data: job,
+      };
+    } else {
+      return {
+        status: false,
+        message: "No job found",
+      };
+    }
+  } catch (error) {
+    return {
+      status: false,
+      message: "job finding failed",
+      error: `job finding failed : ${error?.message}`,
+    };
+  }
+};
+
 // For todays date;
 Date.prototype.today = function () {
   return ((this.getDate() < 10) ? "0" : "") + this.getDate() + "/" + (((this.getMonth() + 1) < 10) ? "0" : "") + (this.getMonth() + 1) + "/" + this.getFullYear();
@@ -114,21 +144,8 @@ const getAppliedJobs = async (register_number) => {
   try {
     let AppliedJobs = await MongoDB.db
       .collection(mongoConfig.collections.JOBAPPLICATIONS)
-      .find({ register_number }).sort({ date: -1, time: -1 }).toArray();
-    // .aggregate([
-    //   {
-    //     '$match': {
-    //       'register_number': register_number
-    //     }
-    //   }, {
-    //     '$lookup': {
-    //       'from': 'jobs',
-    //       'localField': 'jobId',
-    //       'foreignField': 'id',
-    //       'as': 'appliedJobs'
-    //     }
-    //   }
-    // ]);
+      .find({ register_number }).sort({ date: 1, time: 1 }).toArray();
+    
     let countAppliedJobs = await MongoDB.db
       .collection(mongoConfig.collections.JOBAPPLICATIONS)
       .countDocuments()
@@ -188,4 +205,47 @@ const getAppliedJobById = async (id) => {
   }
 };
 
-module.exports = { getAllJob, getOneJobById, applyJob, getAppliedJobs,getAppliedJobById };
+const getAppliedJobByUser = async (id) => {
+  try {
+    let user = await MongoDB.db
+      .collection(mongoConfig.collections.JOBAPPLICATIONS)
+      .aggregate(
+        [
+          {
+            '$match': {
+              'id': id
+            }
+          }, {
+            '$lookup': {
+              'from': 'users', 
+              'localField': 'register_number', 
+              'foreignField': 'register_number', 
+              'as': 'users'
+            }
+          }
+        ]
+      )
+      .toArray();
+
+      if (user && user?.length > 0) {
+      return {
+        status: true,
+        message: "user Applied job found successfully",
+        data: user,
+      };
+    } else {
+      return {
+        status: false,
+        message: "No user Applied job found",
+      };
+    }
+  } catch (error) {
+    return {
+      status: false,
+      message: "Applied job finding failed",
+      error: `Applied job finding failed : ${error?.message}`,
+    };
+  }
+};
+
+module.exports = { getAllJob, getOneJobById, applyJob, getAppliedJobs,getAppliedJobById ,getJobByBranch,getAppliedJobByUser};

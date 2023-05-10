@@ -1,0 +1,14 @@
+[
+    {
+        "id": "100",
+        "name": "arun",
+        "company": "Google",
+        "review": "To load images in react native from URL you must specify the image width, and height. React native cannot determine the width and height from downloaded images. After specifying width, and height we can specify the URL to the image source prop. Inside this prop we will specify a uri which holds our image URL."
+    },
+    {
+        "id": "101",
+        "name": "basil",
+        "company": "Google",
+        "review": "To load images in react native from URL you must specify the image width, and height. React native cannot determine the width and height from downloaded images. After specifying width, and height we can specify the URL to the image source prop. Inside this prop we will specify a uri which holds our image URL."
+    }
+]

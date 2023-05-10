@@ -4,7 +4,9 @@ const {
   getOneJobById,
   applyJob,
   getAppliedJobs,
-  getAppliedJobById
+  getAppliedJobById,
+  getJobByBranch,
+  getAppliedJobByUser
 } = require("../sevices/job.service")
 var router = express.Router();
 
@@ -12,6 +14,13 @@ router.get("/", async (req, res) => {
   let response = await getAllJob();
   res.json(response);
 });
+
+router.get("/branch/:branch", async (req, res) => {
+  let branch = req?.params?.branch;
+  let response = await getJobByBranch(branch);
+  res.json(response);
+});
+
 
 router.get("/:id", async (req, res) => {
   console.log(req?.params)
@@ -39,5 +48,10 @@ router.get("/appliedJobDetails/:id", async (req, res) => {
   res.json(response);
 });
 
+router.get("/appliedJobs/user/:register_number", async (req, res) => {
+  let register_number = req?.params?.register_number;
+  let response = await getAppliedJobByUser(register_number);
+  res.json(response);
+});
 
 module.exports = router;

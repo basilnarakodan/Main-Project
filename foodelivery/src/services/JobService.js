@@ -123,7 +123,7 @@ const getAppliedJob = async register_number => {
 };
 
 const getAppliedJobById = async id => {
-  console.log(`JobsService | getOneJobById`);
+  console.log(`JobsService | getAppliedJobById`);
   try {
     let jobResponse = await axios.get(
       `${ApiConstants.BACKEND_API.BASE_API_URL}${ApiConstants.BACKEND_API.JOB}/appliedJobDetails/${id}`,
@@ -151,4 +151,33 @@ const getAppliedJobById = async id => {
   }
 };
 
-export default { getJobs, getOneJobById, applyJob,getAppliedJob,getAppliedJobById };
+const getJobByBranch = async branch => {
+  console.log(`JobsService | getJobByBranch`);
+  try {
+    let jobResponse = await axios.get(
+      `${ApiConstants.BACKEND_API.BASE_API_URL}${ApiConstants.BACKEND_API.JOB}/branch/${branch}`,
+      {
+        headers: authHeader(getToken()),
+      },
+    );
+    if (jobResponse?.status === 200) {
+      return {
+        status: true,
+        message: `Job data fetched`,
+        data: jobResponse?.data?.data,
+      };
+    } else {
+      return {
+        status: false,
+        message: `Job data not found`,
+      };
+    }
+  } catch (error) {
+    return {
+      status: false,
+      message: `Job data not found`,
+    };
+  }
+};
+
+export default { getJobs, getOneJobById, applyJob,getAppliedJob,getAppliedJobById,getJobByBranch };

@@ -1,69 +1,89 @@
-import React,{useState,useEffect} from "react";
-import { View, Text, StyleSheet, StatusBar, Image, ScrollView, TouchableOpacity } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, Text, StyleSheet, StatusBar, Image, ScrollView, TouchableOpacity, ToastAndroid } from "react-native";
 import { Fonts, Colors, Images } from "../constants";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
-import { Separator } from "../components";
+import { Separator, ReviewCard, RestaurantMediumCard } from "../components";
 import { Display } from "../utils";
-import { JobService, UserService,StaticImageService } from "../services";
+import { JobService, UserService, StaticImageService, ReviewService } from "../services";
+import * as Animatable from 'react-native-animatable';
 
-const applyButtonStyle=(appliedJob,showApplyButton)=>{
-    if(appliedJob || !showApplyButton){
-        return{...styles.applyButton,
-            backgroundColor:Colors.DEFAULT_WHITE,
-            height: 52,
-            width: Display.setWidth(14),
-            borderRadius: 25,
-        }
-    }
-    else{
-        return{...styles.applyButton}
-    }
-}
+// const applyButtonStyle = (appliedJob, showApplyButton) => {
+//     if (appliedJob || !showApplyButton) {
+//         return {
+//             ...styles.applyButton,
+//             backgroundColor: Colors.DEFAULT_WHITE,
+//             height: 52,
+//             width: Display.setWidth(14),
+//             borderRadius: 25,
+//         }
+//     }
+//     else {
+//         return { ...styles.applyButton }
+//     }
+// }
 
-const DetailsScreen = ({ navigation,route:{params:{id}} }) => {
+const DetailsScreen = ({ navigation, route: { params: { id, company } } }) => {
 
     const [userApply, setUserApply] = useState(null);
     const [job, setJob] = useState(null);
-    const[appliedJob,setAppliedJob]=useState(false)
-    const[showApplyButton,setShowApplyButton]=useState(true)
+    const [appliedJob, setAppliedJob] = useState(false)
+    const [showApplyButton, setShowApplyButton] = useState(true)
+    const [reviews, setReviews] = useState();
 
-    useEffect(()=>{
-        JobService.getOneJobById(id).then(response=>{
+    const getJob = async () => {
+        await JobService.getOneJobById(id).then(response => {
             // console.log(response?.data)
             setJob(response?.data)
         })
-        JobService.getAppliedJobById(id).then(response=>{
-            // console.log(response?.data)
-            setAppliedJob(response?.data?.status)
-        })
-        UserService.getUserData().then(response => {
-            if (response?.status) {
+    }
+    useEffect(() => {
+        const unsubscribe = navigation.addListener('focus', () => {
+
+            getJob()
+            JobService.getAppliedJobById(id).then(response => {
                 // console.log(response?.data)
-                setUserApply(response?.data?.data);
-            }
+                setAppliedJob(response?.data?.status)
+            })
+
+            UserService.getUserData().then(response => {
+                if (response?.status) {
+                    // console.log(response?.data)
+                    setUserApply(response?.data?.data);
+                }
+            })
+
+            ReviewService.getReviewByCompany(company).then(response => {
+                // console.log(response?.data?.data)
+                setReviews(response?.data?.data)
+            })
         })
-    },[])
+        return unsubscribe;
+    }, [id])
+    // console.log('1',new Date(new Date('2022-12-04')) > (new Date()));
+    // console.log('2',new Date(new Date('2022-12-04')) < (new Date()));
+    // console.log('3',new Date(new Date('2022-12-04')) > (new Date()));
+    // console.log('4',new Date(new Date('2024-12-04')) < (new Date()));
 
     const applyJob = () => {
         let user = {
-            id:job?.id,
-            company:job?.company,
-            role:job?.role,
-            ctc:job?.ctc,
-            location:job?.location,
-            branch:job?.branch,
-            images:job?.images,
-            username:userApply?.username,
-            register_number:userApply?.register_number
+            id: job?.id,
+            company: job?.company,
+            role: job?.role,
+            ctc: job?.ctc,
+            location: job?.location,
+            branch: job?.branch,
+            images: job?.images,
+            username: userApply?.username,
+            register_number: userApply?.register_number
         };
         JobService.applyJob(user).then(response => {
-            if(response?.status && response?.data?.insertedId){
-                console.log(response)
+            if (response?.status && response?.data?.insertedId) {
+                // console.log(response)
                 setShowApplyButton(false)
             }
-            else{
-                console.log(response)
+            else {
+                console.log("response", response)
             }
         })
     }
@@ -78,86 +98,119 @@ const DetailsScreen = ({ navigation,route:{params:{id}} }) => {
                     <Text style={styles.headerTitle}>{job?.company}</Text>
                 </View>
                 <View style={styles.mainDetailsContainer}>
-                    <View style={styles.imageContainer}>
-                        <Image source={{ uri: StaticImageService.getLogo(job?.images?.logo) }} />
-                    </View>
+                    <Animatable.View style={styles.imageContainer} animation={"slideInUp"}>
+                        <Image source={job?.images?.logo ? { uri: StaticImageService.getLogo(job?.images?.logo) } : Images.NO_IMAGE
+                        } style={{
+                            width: Display.setWidth(18),
+                            height: Display.setWidth(18),
+                            borderRadius: 10,
+                            margin: 5,
+                        }} />
+
+                    </Animatable.View>
                     <View style={styles.mainTextContainer}>
-                        <View style={styles.mainTextSubContainer}>
+                        <Animatable.View style={styles.mainTextSubContainer} animation={'slideInUp'}>
                             <Text>Role</Text>
                             <Text>Type</Text>
-                        </View>
-                        <View style={styles.mainTextSubContainer}>
+                        </Animatable.View>
+                        <Animatable.View style={styles.mainTextSubContainer} animation={'slideInUp'}>
                             <Text style={styles.mainBoldText}>{job?.role}</Text>
                             <Text style={styles.mainBoldText}>{job?.type}</Text>
-                        </View>
-                        <View style={styles.mainTextSubContainer}>
+                        </Animatable.View >
+                        <Image source={{ uri: "https://cdn.logo.com/hotlink-ok/logo-social.png" }} resizeMode={"contain"} />
+
+                        <Animatable.View style={styles.mainTextSubContainer} animation={'slideInUp'}>
                             <Text>Package</Text>
                             <Text>Experience</Text>
-                        </View>
-                        <View style={styles.mainTextSubContainer}>
+                        </Animatable.View>
+                        <Animatable.View style={styles.mainTextSubContainer} animation={'slideInUp'}>
                             <Text style={styles.mainBoldText}>{job?.ctc}</Text>
                             <Text style={styles.mainBoldText}>{job?.experiance}</Text>
-                        </View>
-                        <View style={styles.mainTextSubContainer}>
+                        </Animatable.View>
+                        <Animatable.View style={styles.mainTextSubContainer} animation={'slideInUp'}>
                             <Text>Percentage Criteria</Text>
                             <Text>Backlog</Text>
-                        </View>
-                        <View style={styles.mainTextSubContainer}>
+                        </Animatable.View>
+                        <Animatable.View style={styles.mainTextSubContainer} animation={'slideInUp'}>
                             <Text style={styles.mainBoldText}>{job?.percentage}</Text>
                             <Text style={styles.mainBoldText}>{job?.backlog}</Text>
-                        </View>
-                        <View style={styles.mainTextSubContainer}>
+                        </Animatable.View>
+                        <Animatable.View style={styles.mainTextSubContainer} animation={'slideInUp'}>
                             <Text>Location</Text>
-                        </View>
-                        <View style={styles.mainTextSubContainer}>
+                        </Animatable.View>
+                        <Animatable.View style={styles.mainTextSubContainer} animation={'slideInUp'}>
                             <Text style={styles.mainBoldText}>{job?.location}</Text>
-                        </View>
-                        <View style={styles.mainTextSubContainer}>
+                        </Animatable.View>
+                        <Animatable.View style={styles.mainTextSubContainer} animation={'slideInUp'}>
                             <Text>Branches</Text>
-                        </View>
-                        <View style={styles.mainTextSubContainer}>
+                        </Animatable.View>
+                        <Animatable.View style={styles.mainTextSubContainer} animation={'slideInUp'}>
                             <Text style={styles.mainBoldText}>{job?.branch?.join(' • ')}</Text>
-                        </View>
+                        </Animatable.View>
                     </View>
                 </View>
                 <View style={styles.descriptionContainer}>
-                    <Text style={styles.descriptionHead}>Note</Text>
-                    <Text style={styles.noteDescriptionText}>
+                    <Animatable.Text style={styles.descriptionHead} animation={'slideInUp'}>Note</Animatable.Text>
+                    <Animatable.Text style={styles.noteDescriptionText} animation={'slideInUp'}>
                         {job?.note}
-                    </Text>
-                    <Text style={styles.descriptionHead}>About this Job</Text>
-                    <Text style={styles.descriptionText}>
+                    </Animatable.Text>
+                    <Animatable.Text style={styles.descriptionHead} animation={'slideInUp'}>About this Job</Animatable.Text>
+                    <Animatable.Text style={styles.descriptionText} animation={'slideInUp'}>
                         {job?.about_job}
-                    </Text>
-                    <Text style={styles.descriptionHead}>Roles</Text>
-                    <Text style={styles.descriptionText}>
+                    </Animatable.Text>
+                    <Animatable.Text style={styles.descriptionHead} animation={'slideInUp'}>Roles</Animatable.Text>
+                    <Animatable.Text style={styles.descriptionText} animation={'slideInUp'}>
                         {job?.role}
-                    </Text>
-                    <Text style={styles.descriptionHead}>About the company</Text>
-                    <Text style={styles.descriptionText}>
+                    </Animatable.Text>
+                    <Animatable.Text style={styles.descriptionHead} animation={'slideInUp'}>About the company</Animatable.Text>
+                    <Animatable.Text style={styles.descriptionText} animation={'slideInUp'}>
                         {job?.about_company}
-                    </Text>
+                    </Animatable.Text>
                     <Text style={styles.descriptionHead}>Requirements</Text>
                     <Text style={styles.descriptionText}>
                         {job?.requirments}
                     </Text>
                     <Text style={styles.descriptionHead}>Attachments</Text>
                     <Text style={styles.descriptionText}>{job?.attachments}</Text>
-                    <Separator height={50}/>
+                    <Separator height={50} />
+                </View>
+                <View style={styles.descriptionContainer}>
+                    <Text style={styles.descriptionHead}>Student Reviews</Text>
+                    {reviews?.map(item => (
+                        <ReviewCard {...item} key={item?.id} />
+                    ))}
+                    <Separator height={50} />
                 </View>
             </ScrollView >
-            
-            <TouchableOpacity 
-                style={applyButtonStyle(appliedJob,showApplyButton)} 
-                activeOpacity={0.8} 
-                onPress={() =>applyJob()}
-                disabled={appliedJob||!showApplyButton}
-            >
-                {appliedJob||!showApplyButton?<FontAwesome5 name="check-circle" size={45} color={Colors.DEFAULT_GREEN}/>
-            :  <Text style={styles.applyText}>Apply</Text>
+
+            {
+                appliedJob || !showApplyButton ?
+                    <TouchableOpacity 
+                        style={styles.disableApplyButton} 
+                        activeOpacity={0.8}
+                        onPress={()=>ToastAndroid.show("Already Applied", ToastAndroid.SHORT)}
+                        >
+                        <FontAwesome5 name="check-circle" size={45} color={Colors.DEFAULT_GREEN} />
+                    </TouchableOpacity>
+                    :
+                    (new Date("2021-02-02")) < (new Date()) ?
+                        <TouchableOpacity
+                            style={styles.disableApplyButton}
+                            activeOpacity={0.8}
+                            onPress={() => ToastAndroid.show("Application Closed", ToastAndroid.SHORT)}
+                        >
+                            <Ionicons name="close-circle-outline" size={45} color={Colors.DEFAULT_RED} />
+                        </TouchableOpacity>
+                        :
+                        <TouchableOpacity
+                            style={styles.applyButton}
+                            activeOpacity={0.8}
+                            onPress={() => applyJob()}
+                        >
+                            <Text style={styles.applyText}>Apply</Text>
+                        </TouchableOpacity>
             }
-            </TouchableOpacity>
-        </View>
+        </View >
 
     );
 };
@@ -165,14 +218,15 @@ const DetailsScreen = ({ navigation,route:{params:{id}} }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        flexDirection: 'row',
         backgroundColor: Colors.LIGHT_GREEN,
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
     },
     headerContainer: {
         flexDirection: "row",
         alignItems: "center",
-        justifyContent:"center",
+        justifyContent: "center",
         paddingVertical: 10,
     },
     headerTitle: {
@@ -184,14 +238,16 @@ const styles = StyleSheet.create({
     },
     mainDetailsContainer: {
         backgroundColor: Colors.DEFAULT_WHITE,
-        borderRadius: 35,
+        borderRadius: 30,
         padding: 20,
+        alignSelf: "center",
         justifyContent: "center",
         alignContent: "center",
-        width: Display.setWidth(97)
+        width: Display.setWidth(95),
     },
     imageContainer: {
         alignItems: "center",
+
         paddingVertical: 20
     },
     mainTextContainer: {
@@ -208,9 +264,9 @@ const styles = StyleSheet.create({
     descriptionContainer: {
         marginTop: 7,
         backgroundColor: Colors.DEFAULT_WHITE,
-        borderRadius: 35,
+        borderRadius: 20,
         padding: 20,
-        width: Display.setWidth(97)
+        width: Display.setWidth(100)
     },
     descriptionHead: {
         fontFamily: Fonts.POPPINS_BOLD,
@@ -234,9 +290,24 @@ const styles = StyleSheet.create({
         bottom: 10,
         elevation: 3
     },
+    disableApplyButton: {
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: Colors.DEFAULT_WHITE,
+        height: 52,
+        width: Display.setWidth(14),
+        borderRadius: 25,
+        position: 'absolute',
+        bottom: 10,
+        elevation: 3
+    },
     applyText: {
         fontFamily: Fonts.POPPINS_MEDIUM,
         color: Colors.DEFAULT_WHITE
+    },
+    closedText: {
+        fontFamily: Fonts.POPPINS_MEDIUM,
+        color: Colors.DEFAULT_RED
     }
 });
 

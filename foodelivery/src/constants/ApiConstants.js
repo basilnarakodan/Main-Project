@@ -26,6 +26,7 @@ const BACKEND_API={
     ANNOUNCEMENT:'/announcement',
     ALUMNI:'/alumni',
     STUDENTPROFILE:'/studentProfile',
+    REVIEW:'/review',
 };
 
 

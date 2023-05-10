@@ -4,15 +4,17 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { Colors, Fonts, Images } from '../constants';
 import { StaticImageService } from '../services';
 import { Display } from '../utils';
+import * as Animatable from 'react-native-animatable';
 
 const RestaurantMediumCard = ({ id, company, images: { logo }, role, ctc, branch, location, last_date, last_time,date,time, navigate }) => {
     return (
         <TouchableOpacity
             activeOpacity={.7}
-            onPress={() => navigate(id)}
+            onPress={() => navigate(id,company)}
         >
-            <View style={styles.container}>
+            <Animatable.View style={styles.container} animation={"fadeInUp"}>
                 <View>
+                   
                     <Image
                         source={logo ? { uri: StaticImageService.getLogo(logo) } : Images.NO_IMAGE}
                         resizeMode={logo ? "cover" : "contain"}
@@ -56,7 +58,7 @@ const RestaurantMediumCard = ({ id, company, images: { logo }, role, ctc, branch
                         </View>
                     </View>
                 </View>
-            </View>
+            </Animatable.View>
         </TouchableOpacity>
     );
 };

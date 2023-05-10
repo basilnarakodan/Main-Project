@@ -12,12 +12,12 @@ import FeatherIcon from 'react-native-vector-icons/Feather';
 import { Colors } from '../constants';
 import { StaticImageService } from '../services';
 import { Display } from '../utils';
-
+import * as Animatable from 'react-native-animatable';
 
 export default function ConnectCard({name,joined_company,passing_year,linkedIn,images: {logo},linkedInUrl}) {
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: '#f6f6f6' }}>
-            <View style={styles.container}>
+            <Animatable.View style={styles.container} animation={"fadeInUp"}>
                 <View style={styles.profile}>
                     <View style={styles.profileHeader}>
                         <Image
@@ -44,7 +44,7 @@ export default function ConnectCard({name,joined_company,passing_year,linkedIn,i
                         </TouchableOpacity>
                     </View>
                 </View>
-            </View>
+            </Animatable.View>
         </SafeAreaView>
     );
 }

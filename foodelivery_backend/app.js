@@ -9,9 +9,11 @@ var authenticationRouter = require('./routes/authentication');
 var userRouter = require('./routes/user.route');
 var restaurantRouter = require('./routes/restaurant.route');
 var jobRouter = require('./routes/job.route');
+var adminRouter = require('./routes/admin.route');
 var announcementRouter = require('./routes/announcement.route');
 var alumniRouter = require('./routes/alumni.route');
 var studentProfileRouter = require('./routes/studentProfile.route');
+var reviewRouter=require('./routes/review.route');
 
 const MondoDB=require("./sevices/mongodb.service");
 
@@ -21,12 +23,20 @@ var app = express();
 var cors = require('cors');
 app.use(cors());
 
-//image upload and for api for last of this page
+//image upload and for api goto last part of this page
 const bodyParser=require('body-parser')
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended:false}))
-const multer=require('multer')
-const upload=multer({dest: 'static/'})
+const multer = require("multer");
+
+const storage = multer.diskStorage({
+  destination: "static/images/profile",
+  filename: function (req, file, cb) {
+    cb(null,  req.username + "." + file.originalname.split(".").pop());
+  },
+});
+
+const diskStorage = multer({ storage: storage });
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -40,16 +50,46 @@ app.use(cookieParser());
 app.use(express.static('static'));
 
 
+
+
+
+
+
 app.use("*",require("./sevices/authentication.service").tokenVerification); //now all api goes through this
 
 app.use('/', indexRouter);
 app.use('/api', authenticationRouter);
 app.use('/api/user', userRouter);
+app.use('/api/review', reviewRouter);
 app.use('/api/restaurant', restaurantRouter);
 app.use('/api/job', jobRouter);
+app.use('/api/admin', adminRouter);
 app.use('/api/announcement', announcementRouter);
 app.use('/api/alumni', alumniRouter);
 app.use('/api/studentProfile', studentProfileRouter);
+
+
+
+//image api
+app.post('/api/upload',diskStorage.single('image'),(req,res)=>{
+  console.log("Upload Hit");
+  console.log(req.username)
+ 
+  if(!req.file){
+    res.send({code:500,msg:"err"})
+  }else{
+    res.send({code:10,msg:"upload success"})
+  }
+})
+
+app.get('/get', function(req, res, next) {
+  console.log("Hello")
+  res.json({ "title": 'Express' });
+});
+
+
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -71,19 +111,6 @@ app.use(function(err, req, res, next) {
 });
 
 
-app.get('/get', function(req, res, next) {
-  console.log("Hello")
-  res.json({ "title": 'Express' });
-});
 
-//image api
-app.post('/upload',upload.single('file'),(req,res)=>{
-  console.log(req.file)
-  if(!req.file){
-    res.send({code:500,msg:"err"})
-  }else{
-    res.send({code:10,msg:"upload success"})
-  }
-})
 
 module.exports = app;

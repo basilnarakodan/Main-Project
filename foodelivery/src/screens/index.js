@@ -11,6 +11,13 @@ import DashboardScreen from "./DashboardScreen";
 import ConnectScreen from "./ConnectScreen";
 import EditProfileScreen from "./EditProfileScreen";
 import ProfileScreen from "./ProfileScreen";
+import ReviewScreen from "./ReviewScreen";
+import AddReviewScreen from "./AddReviewScreen";
+import ResourceScreen from "./ResourceScreen";
+import ResourceSingleScreen from "./ResourceSingleScreen";
+import VideoScreen from "./VideoScreen"
+import PdfScreen from "./PdfScreen";
+import PolicyScreen from "./PolicyScreen";
 
 export {
     SplashScreen,
@@ -26,4 +33,11 @@ export {
     ConnectScreen,
     EditProfileScreen,
     ProfileScreen,
+    ReviewScreen,
+    AddReviewScreen,
+    ResourceScreen,
+    ResourceSingleScreen,
+    VideoScreen,
+    PdfScreen,
+    PolicyScreen
 };

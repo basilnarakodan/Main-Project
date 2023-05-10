@@ -1,17 +1,17 @@
 import React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
-import {Colors, Fonts} from '../constants';
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { Colors, Fonts } from '../constants';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {StaticImageService} from '../services';
-import {useDispatch, useSelector} from 'react-redux';
-import {BookmarkAction} from '../actions';
+import { StaticImageService } from '../services';
+import { BookmarkAction } from '../actions';
+import * as Animatable from 'react-native-animatable';
 
 const RestaurantCard = ({
   id,
   title,
   location,
-  images: {poster},
+  images: { poster },
   subject,
   date,
   time,
@@ -31,8 +31,8 @@ const RestaurantCard = ({
     <TouchableOpacity
       style={styles.container}
       activeOpacity={0.8}
-      // onPress={() => navigate(id)}
-      >
+    // onPress={() => navigate(id)}
+    >
       {/* <Ionicons
         name={isBookmarked ? 'bookmark' : 'bookmark-outline'}
         color={Colors.DEFAULT_YELLOW}
@@ -40,13 +40,14 @@ const RestaurantCard = ({
         style={styles.bookmark}
         onPress={() => (isBookmarked ? removeBookmark() : addBookmark())}
       /> */}
-      <Image
-        source={{uri: StaticImageService.getPoster(poster)}}
+      <Animatable.Image
+        source={{ uri: StaticImageService.getPoster(poster) }}
         style={styles.posterStyle}
+        animation={"zoomInRight"}
       />
-      <Text style={styles.titleText}>{title}</Text>
-      <Text style={styles.tagText}>{subject}</Text>
-      <View style={styles.footerContainer}>
+      <Animatable.Text style={styles.titleText} animation={"zoomInRight"}>{title}</Animatable.Text>
+      <Animatable.Text style={styles.tagText} animation={"zoomInRight"}>{subject}</Animatable.Text>
+      <Animatable.View style={styles.footerContainer} animation={"zoomInRight"}>
         <View style={styles.rowAndCenter}>
           <FontAwesome name="star" size={14} color={Colors.DEFAULT_YELLOW} />
           <Text style={styles.ratingText}>{location}</Text>
@@ -70,7 +71,7 @@ const RestaurantCard = ({
             <Text style={styles.timeAndDistanceText}>{time}</Text>
           </View>
         </View>
-      </View>
+      </Animatable.View>
     </TouchableOpacity>
   );
 };

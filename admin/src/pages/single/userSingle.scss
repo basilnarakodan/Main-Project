@@ -1,0 +1,108 @@
+.single {
+    display: flex;
+    max-width:90% ;
+    .singleContainer {
+        flex: 6;
+        padding-bottom: 75px;
+        max-width: 94%;
+        .top {
+            padding: 20px;
+            display: flex;
+            gap: 20px;
+
+            .left {
+                padding: 20px;
+                flex: 1;
+                -webkit-box-shadow: 5px 5px 15px 1px #F0F0F0;
+                box-shadow: 5px 5px 15px 1px #F0F0F0;
+                border-radius: 5px;
+                position: relative;
+// max-width: 95%;
+
+
+                .editButton {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    padding: 5px;
+                    font-size: 17px;
+                    color: #7451f8;
+                    background-color: #7551f818;
+                    cursor: pointer;
+
+                    .icon {
+                        font-size: 15px;
+                        padding-right: 5px;
+                    }
+                }
+
+                .item {
+                    display: flex;
+                    gap: 20px;
+                    // width: 800px;
+                    flex-direction: row;
+                    justify-content: space-around;
+                    margin-left: 50px;
+                    margin-top: 15px;
+                    .leftorg {
+                        width: 50%;
+                    }
+
+                    .rightorg {
+                        width: 50%;
+                    }
+
+                    .itemimg {
+                        width: 75px;
+                        height: 75px;
+                        border-radius: 50%;
+                        object-fit: cover;
+                    }
+
+                    .details {
+                        display: flex;
+                        flex-direction: row;
+
+                        .detailItem {
+                            padding-right: 100px;
+                            padding-bottom: 20px;
+
+
+                            .itemKey {
+                                color: gray;
+                            }
+
+                            .itemValue {
+                                color: rgb(58, 58, 58);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .bottom {
+            padding: 20px;
+            flex: 1;
+            -webkit-box-shadow: 5px 5px 15px 1px #F0F0F0;
+            box-shadow: 5px 5px 15px 1px #F0F0F0;
+            border-radius: 5px;
+            margin: 5px 20px;
+
+            img {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+
+        .title {
+            padding-bottom: 20px;
+            padding-left: 15px;
+            font-size: 20px;
+            color: lightgray;
+        }
+
+
+    }
+}

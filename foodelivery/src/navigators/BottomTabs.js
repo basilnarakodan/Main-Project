@@ -1,16 +1,18 @@
 import React from 'react';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {
   HomeScreen,
   ConnectScreen,
   ProfileScreen,
-  DashboardScreen
+  DashboardScreen,
+  ReviewScreen,
+  ResourceScreen
 } from '../screens';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {Display} from '../utils';
-import {Colors} from '../constants';
+import { Display } from '../utils';
+import { Colors } from '../constants';
 
 const BottomTabs = createBottomTabNavigator();
 
@@ -35,7 +37,7 @@ export default () => (
       name="Home"
       component={HomeScreen}
       options={{
-        tabBarIcon: ({color}) => (
+        tabBarIcon: ({ color }) => (
           <Ionicons name="home-outline" size={23} color={color} />
         ),
       }}
@@ -44,17 +46,35 @@ export default () => (
       name="Dashboard"
       component={DashboardScreen}
       options={{
-        tabBarIcon: ({color}) => (
+        tabBarIcon: ({ color }) => (
           <MaterialCommunityIcons name="view-dashboard-outline" size={23} color={color} />
         ),
       }}
     />
-    <BottomTabs.Screen
+    {/* <BottomTabs.Screen
       name="Connect"
       component={ConnectScreen}
       options={{
-        tabBarIcon: ({color}) => (
+        tabBarIcon: ({ color }) => (
           <Feather name="send" size={23} color={color} />
+        ),
+      }}
+    />
+    <BottomTabs.Screen
+      name="Review"
+      component={ReviewScreen}
+      options={{
+        tabBarIcon: ({ color }) => (
+          <MaterialCommunityIcons name="comment-text-multiple-outline" size={23} color={color} />
+        ),
+      }}
+    /> */}
+    <BottomTabs.Screen
+      name="Resource"
+      component={ResourceScreen}
+      options={{
+        tabBarIcon: ({ color }) => (
+          <Feather name="book-open" size={23} color={color} />
         ),
       }}
     />
@@ -62,7 +82,7 @@ export default () => (
       name="Profile"
       component={ProfileScreen}
       options={{
-        tabBarIcon: ({color}) => (
+        tabBarIcon: ({ color }) => (
           <Feather name="user" size={23} color={color} />
         ),
       }}
